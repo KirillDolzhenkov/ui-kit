@@ -1,3 +1,9 @@
+import Button from '@/components/ui/button/Button'
+
 export function App() {
-  return <div>ui-kit</div>
+  return (
+    <>
+      <Button>test</Button>
+    </>
+  )
 }

@@ -9,14 +9,14 @@ import {
 
 import clsx from 'clsx'
 
-import s from './button.module.scss'
+import s from '@/components/ui/button/Button.module.scss'
 
 export type ButtonProps<T extends ElementType = 'button'> = {
   as?: T
   children: ReactNode
   className?: string
   fullWidth?: boolean
-  variant?: 'outlined' | 'primary' | 'secondary'
+  variant?: 'outlined' | 'primary' | 'secondary' | 'text'
 } & ComponentPropsWithoutRef<T>
 
 export const ButtonPolymorph = <T extends ElementType = 'button'>(
@@ -34,9 +34,11 @@ export const ButtonPolymorph = <T extends ElementType = 'button'>(
   )
 }
 
-export const Button = forwardRef(ButtonPolymorph) as <T extends ElementType = 'button'>(
+const Button = forwardRef(ButtonPolymorph) as <T extends ElementType = 'button'>(
   props: {
     ref?: ForwardedRef<ElementRef<T>>
   } & ButtonProps<T> &
     Omit<ComponentPropsWithoutRef<T>, keyof ButtonProps<T>>
 ) => ReturnType<typeof ButtonPolymorph>
+
+export default Button

@@ -1,10 +1,11 @@
-import React, { ComponentPropsWithoutRef, ElementRef, forwardRef, useId } from 'react'
+import React, { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
 
 import CheckIcon from '@/assets/icons/svg/CheckboxIcon'
+import { useAutoId } from '@/hooks/useAutoId'
 import * as CheckboxRadix from '@radix-ui/react-checkbox'
 import clsx from 'clsx'
 
-import s from './checkbox.module.scss'
+import s from '@/components/ui/checkbox/Checkbox.module.scss'
 
 export type CheckboxPropsProps = {
   label?: string
@@ -13,7 +14,7 @@ export type CheckboxPropsProps = {
 const Checkbox = forwardRef<ElementRef<typeof CheckboxRadix.Root>, CheckboxPropsProps>(
   (props: CheckboxPropsProps, ref) => {
     const { checked, className, disabled, id, label, onCheckedChange, ...rest } = props
-    const generatedId = useId()
+    const generatedId = useAutoId(id)
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
       if (event.key === 'Enter') {
@@ -39,7 +40,7 @@ const Checkbox = forwardRef<ElementRef<typeof CheckboxRadix.Root>, CheckboxProps
           {...rest}
           checked={checked}
           className={classNames.root}
-          id={id ?? generatedId}
+          id={generatedId}
           onCheckedChange={onCheckedChange}
           onKeyDown={handleKeyDown}
           ref={ref}
@@ -50,7 +51,7 @@ const Checkbox = forwardRef<ElementRef<typeof CheckboxRadix.Root>, CheckboxProps
             </CheckboxRadix.Indicator>
           )}
         </CheckboxRadix.Root>
-        <label className={classNames.label} htmlFor={id ?? generatedId}>
+        <label className={classNames.label} htmlFor={generatedId}>
           {label}
         </label>
       </div>
