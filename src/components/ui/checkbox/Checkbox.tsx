@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
+import React, { ComponentPropsWithoutRef, ElementRef, ReactNode, forwardRef } from 'react'
 
 import CheckIcon from '@/assets/icons/svg/CheckboxIcon'
 import { useAutoId } from '@/hooks/useAutoId'
@@ -8,7 +8,7 @@ import clsx from 'clsx'
 import s from '@/components/ui/checkbox/Checkbox.module.scss'
 
 export type CheckboxPropsProps = {
-  label?: string
+  label?: ReactNode
 } & ComponentPropsWithoutRef<typeof CheckboxRadix.Root>
 
 const Checkbox = forwardRef<ElementRef<typeof CheckboxRadix.Root>, CheckboxPropsProps>(
@@ -27,11 +27,15 @@ const Checkbox = forwardRef<ElementRef<typeof CheckboxRadix.Root>, CheckboxProps
         [s.checked]: checked,
         [s.disabled]: disabled,
       }),
-      label: clsx(s.Label, className, { [s.disabled]: disabled }),
-      root: clsx(s.CheckboxRoot, className, {
-        [s.checked]: checked,
-        [s.disabled]: disabled,
-      }),
+      label: clsx(s.Label, { [s.disabled]: disabled }, className),
+      root: clsx(
+        s.CheckboxRoot,
+        {
+          [s.checked]: checked,
+          [s.disabled]: disabled,
+        },
+        className
+      ),
     }
 
     return (
